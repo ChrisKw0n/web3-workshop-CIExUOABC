@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 20 14.3% 4.1%;
+
+    /* Orange theme for CIE */
+    --primary: 30 100% 50%; /* Vibrant orange */
+    --primary-foreground: 0 0% 100%; /* White text on orange */
+
+    --secondary: 30 30% 96%; /* Light orange/cream */
+    --secondary-foreground: 30 50% 30%; /* Darker orange for text on light bg */
+
+    --card: 0 0% 100%;
+    --card-foreground: 20 14.3% 4.1%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 14.3% 4.1%;
+
+    --muted: 30 10% 96%;
+    --muted-foreground: 20 8% 40%;
+
+    --accent: 30 40% 94%;
+    --accent-foreground: 30 50% 30%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 20 5.9% 90%;
+    --input: 20 5.9% 90%;
+    --ring: 30 100% 50%; /* Orange ring */
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 20 14.3% 4.1%;
+    --foreground: 0 0% 98%;
+
+    /* Dark mode orange theme */
+    --primary: 30 100% 50%; /* Keep orange as primary */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 30 30% 15%;
+    --secondary-foreground: 0 0% 98%;
+
+    --card: 20 14.3% 4.1%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 20 14.3% 4.1%;
+    --popover-foreground: 0 0% 98%;
+
+    --muted: 30 10% 20%;
+    --muted-foreground: 20 8% 70%;
+
+    --accent: 30 20% 25%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 20 10% 20%;
+    --input: 20 10% 20%;
+    --ring: 30 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
