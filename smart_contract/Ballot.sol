@@ -36,15 +36,16 @@ contract Ballot {
      * @dev Create a new ballot to choose one of 'proposalNames'.
      * @param proposalNames names of proposals
      */
-    constructor(bytes32[] memory proposalNames) {
-        // For each of the provided proposal names,
-        // create a new proposal object and add it
-        // to the end of the array.
+    constructor(string[] memory proposalNames) {
+        // For each of the provided proposal names (as strings),
+        // convert each one to bytes32 and create a new proposal object.
         for (uint i = 0; i < proposalNames.length; i++) {
+            bytes32 proposalName = stringToBytes32(proposalNames[i]);
+
             // 'Proposal({...})' creates a temporary
             // Proposal object and 'proposals.push(...)'
             // appends it to the end of 'proposals'.
-            proposals.push(Proposal({name: proposalNames[i], voteCount: 0}));
+            proposals.push(Proposal({name: proposalName, voteCount: 0}));
         }
     }
 
@@ -146,5 +147,23 @@ contract Ballot {
      */
     function winnerName() external view returns (bytes32 winnerName_) {
         winnerName_ = proposals[winningProposal()].name;
+    }
+
+    /**
+     * @dev Helper function, converts a string to bytes32
+     * @param source string to convert
+     * @return result bytes32 representation of the string
+     */
+    function stringToBytes32(
+        string memory source
+    ) internal pure returns (bytes32 result) {
+        bytes memory temp = bytes(source);
+        if (temp.length > 32) {
+            revert("String too long, exceeds 32 bytes");
+        }
+
+        assembly {
+            result := mload(add(temp, 32))
+        }
     }
 }

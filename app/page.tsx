@@ -13,7 +13,6 @@ export default function Home() {
   const [walletAddress, setWalletAddress] = useState("")
   const isCorrectNetwork = network === "sepolia"
 
-  // 处理地址变化的函数
   const handleAddressChanged = (address: string) => {
     setWalletAddress(address)
     setIsConnected(!!address)

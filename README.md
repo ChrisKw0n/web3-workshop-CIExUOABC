@@ -34,59 +34,47 @@ cd web3-workshop-CIExUOABC
 
 ### 2️⃣ Deploy the Smart Contract
 1. Open [Remix IDE](https://remix.ethereum.org/).
-2. Copy the **Ballot.sol** contract from the `contract/` folder.
-3. Compile and Deploy on a testnet using MetaMask.
-4. Copy the **contract address** after deployment.
+2. Copy the **Ballot.sol** contract from the `smart_contract/` folder.
+3. Go to the file `3_Ballot.sol` and replace all the code with the copied code from our repo. Once replaced, ctrl + s to save and compile.
+
+![alt text](/images/image1.png)
+
+4. The third tab (compiler) will now have a green tick, indicating a successful compilation of your contract code! Click on the fourth tab (Deploy & run transactions).
+
+![alt text](/images/image2.png)
+
+5. Enter a valid input and then click deploy. This contract takes an array of strings which are the DAO proposal titles. Here is an example input:
+
+![alt text](/images/image3.png)
+
+**You have now deployed a smart contract to a local test network! Please refer to the workshop recording to see how to deploy on ETH Sepolia.**
 
 ### 3️⃣ Run the Frontend
 Choose your preferred package manager:
 
 #### Using Bun:
 ```sh
-cd frontend
 bun install  # Install dependencies
 bun run dev  # Start the development server
 ```
 
 #### Using npm:
 ```sh
-cd frontend
 npm install  # Install dependencies
 npm run dev  # Start the development server
 ```
 
 ### 4️⃣ Connect Frontend to Smart Contract
-1. Open `frontend/config.js`.
-2. Update the `CONTRACT_ADDRESS` with the deployed contract address.
+1. Open `components/proposal-list`.
+2. Update the `BALLOT_CONTRACT_ADDRESS` with the deployed contract address.
+3. Connect your Metamask wallet.
 3. Refresh the page and interact with the DAO voting system!
 
 ---
 
-## 📜 Smart Contract (Ballot.sol)
-```solidity
-// SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8.0;
-
-contract Ballot {
-    struct Proposal {
-        bytes32 name;
-        uint voteCount;
-    }
-    mapping(address => bool) public voters;
-    Proposal[] public proposals;
-    function vote(uint proposal) public {
-        require(!voters[msg.sender], "Already voted");
-        voters[msg.sender] = true;
-        proposals[proposal].voteCount++;
-    }
-}
-```
-
----
-
-## 🚀 Next Steps
-- Modify the contract to allow vote delegation.
-- Add wallet connection using **ethers.js**.
+## 🚀 Possible Next Steps
+- Add new features such as quadratic voting.
+- Implement more wallet interactions with frameworks such as [ethers.js](https://docs.ethers.org/v5/) and [wagmi](https://wagmi.sh/)
 - Deploy the frontend using **Vercel**.
 
 Happy coding! 🎉
