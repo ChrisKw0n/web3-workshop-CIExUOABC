@@ -1,6 +1,6 @@
 # 🚀 CIE x UOABC Workshop
 
-Welcome to the **CIE DAO Workshop**! In this session, we'll explore **on-chain interactions** by deploying a **Ballot smart contract** on **Remix IDE** and then interacting with it from a **Next.js front end**.
+Welcome to the **CIE DAO Workshop**! In this session, we'll explore **on-chain interactions** by deploying a **Ballot smart contract** on **Remix IDE** and then interacting with it from a **Next.js front end**. This repo also acts as an idea that you can extend off during the hackathon.
 
 ---
 
@@ -18,8 +18,7 @@ Before starting, make sure you have:
 
 - [Node.js](https://nodejs.org/) installed
 - [MetaMask](https://metamask.io/) extension set up
-- A **testnet faucet** to get test ETH (Goerli, Sepolia, etc.)
-- Basic understanding of Solidity and Next.js (helpful but not required)
+- A **testnet faucet** to get test ETH.
 
 **Note:** Provided laptops in workshop will have metamask setup with some Sepolia ETH to start off with.
 
@@ -29,8 +28,8 @@ Before starting, make sure you have:
 
 ### 1️⃣ Clone the Repository
 ```sh
-git clone https://github.com/your-username/dao-workshop.git
-cd dao-workshop
+git clone https://github.com/ChrisKw0n/web3-workshop-CIExUOABC.git
+cd web3-workshop-CIExUOABC
 ```
 
 ### 2️⃣ Deploy the Smart Contract
