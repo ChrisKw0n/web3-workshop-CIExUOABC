@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
-          <Toaster /> {/* 渲染 Toast 容器 */}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
