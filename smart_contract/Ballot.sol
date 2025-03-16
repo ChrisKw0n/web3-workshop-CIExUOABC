@@ -1,7 +1,3 @@
-/**
- *Submitted for verification at Etherscan.io on 2025-03-16
- */
-
 // SPDX-License-Identifier: GPL-3.0
 
 pragma solidity >=0.7.0 <0.9.0;
@@ -25,7 +21,7 @@ contract Ballot {
     struct Proposal {
         // If you can limit the length to a certain number of bytes,
         // always use one of bytes1 to bytes32 because they are much cheaper
-        string name; // short name (up to 32 bytes)
+        bytes32 name; // short name (up to 32 bytes)
         uint voteCount; // number of accumulated votes
     }
 
@@ -41,14 +37,15 @@ contract Ballot {
      * @param proposalNames names of proposals
      */
     constructor(string[] memory proposalNames) {
-        // For each of the provided proposal names,
-        // create a new proposal object and add it
-        // to the end of the array.
+        // For each of the provided proposal names (as strings),
+        // convert each one to bytes32 and create a new proposal object.
         for (uint i = 0; i < proposalNames.length; i++) {
+            bytes32 proposalName = stringToBytes32(proposalNames[i]);
+
             // 'Proposal({...})' creates a temporary
             // Proposal object and 'proposals.push(...)'
             // appends it to the end of 'proposals'.
-            proposals.push(Proposal({name: proposalNames[i], voteCount: 0}));
+            proposals.push(Proposal({name: proposalName, voteCount: 0}));
         }
     }
 
@@ -148,7 +145,25 @@ contract Ballot {
      * @dev Calls winningProposal() function to get the index of the winner contained in the proposals array and then
      * @return winnerName_ the name of the winner
      */
-    function winnerName() external view returns (string memory winnerName_) {
+    function winnerName() external view returns (bytes32 winnerName_) {
         winnerName_ = proposals[winningProposal()].name;
+    }
+
+    /**
+     * @dev Helper function, converts a string to bytes32
+     * @param source string to convert
+     * @return result bytes32 representation of the string
+     */
+    function stringToBytes32(
+        string memory source
+    ) internal pure returns (bytes32 result) {
+        bytes memory temp = bytes(source);
+        if (temp.length > 32) {
+            revert("String too long, exceeds 32 bytes");
+        }
+
+        assembly {
+            result := mload(add(temp, 32))
+        }
     }
 }
