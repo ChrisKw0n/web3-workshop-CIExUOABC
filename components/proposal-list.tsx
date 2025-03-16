@@ -17,7 +17,7 @@ import { Progress } from "@/components/ui/progress";
 import { ThumbsUp, ThumbsDown, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-// ABI based on the Ballot contract
+// ABI (Application Binary Interface) for interacting with the Ballot contract
 const ballotAbi = [
   {
     inputs: [
@@ -142,8 +142,10 @@ const ballotAbi = [
   },
 ];
 
+// Contract address of the deployed Ballot contract
 const BALLOT_CONTRACT_ADDRESS = "0x028Bbf361eEE890827988f737b56B8F8863E35ff";
 
+// Define the structure of a Proposal
 type Proposal = {
   id: number;
   title: string;
@@ -152,11 +154,13 @@ type Proposal = {
   hasVoted: boolean;
 };
 
+// Props for the ProposalList component
 interface ProposalListProps {
   walletAddress: string;
 }
 
 export function ProposalList({ walletAddress }: ProposalListProps) {
+  // State variables to manage component data
   const [proposals, setProposals] = useState<Proposal[]>([]);
   const [loading, setLoading] = useState(false);
   const [isVoting, setIsVoting] = useState(false);
@@ -167,6 +171,7 @@ export function ProposalList({ walletAddress }: ProposalListProps) {
   const [network, setNetwork] = useState<string>("");
   const { toast } = useToast();
 
+  // Function to load proposals from the contract
   const loadProposals = async (userAddress: string) => {
     try {
       setLoading(true);
@@ -176,6 +181,7 @@ export function ProposalList({ walletAddress }: ProposalListProps) {
         return;
       }
 
+      // Create a provider and signer
       const providerInstance = new BrowserProvider((window as any).ethereum);
       setProvider(providerInstance);
 
@@ -189,6 +195,7 @@ export function ProposalList({ walletAddress }: ProposalListProps) {
 
       const proposalsData: Proposal[] = [];
 
+      // Fetch proposals from the contract
       let proposalCount = 0;
       try {
         while (true) {
@@ -203,9 +210,11 @@ export function ProposalList({ walletAddress }: ProposalListProps) {
         proposalCount = 5;
       }
 
+      // Get voter details
       const voter = await ballotContract.voters(userAddress);
       const hasVoted = voter.voted;
 
+      // Loop through proposals and add them to the state
       for (let i = 0; i < proposalCount; i++) {
         try {
           const proposal = await ballotContract.proposals(i);
